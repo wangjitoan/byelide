@@ -6,7 +6,8 @@ import pluginOxlint from 'eslint-plugin-oxlint'
 import skipFormatting from 'eslint-config-prettier/flat'
 import { configureVueProject } from '@vue/eslint-config-typescript'
 // To allow more languaimport { configureVueProject } from '@vue/eslint-config-typescript'ges other than `ts` in `.vue` files, uncomment the following lines:
-//
+
+import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort'
 // configureVueProject({ scriptLangs: ['ts', 'tsx'] })
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 configureVueProject({ scriptLangs: ['ts', 'tsx'] })
@@ -31,6 +32,12 @@ export default defineConfigWithVueTs(
   },
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
-
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      'simple-import-sort/imports': 'error',
+    },
+    plugins: { 'simple-import-sort': pluginSimpleImportSort },
+  },
   skipFormatting,
 )
